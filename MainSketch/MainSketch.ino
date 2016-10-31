@@ -349,6 +349,21 @@ SensorManagerClass* MainSensorManager;
 
 BaseStrategyClass* MainStrategy;
 
+void move(unsigned long timeCount) {
+  MainMovement->SetSpeedAndGoForward(1);
+  unsigned long timeStart = millis();
+  while (millis() - timeStart < timeCount) delay(100);
+  MainMovement->SetSpeedAndGoForward(0);
+}
+
+void rotate(unsigned long timeCount) {
+  MainMovement->GetLeftMotor()->SetSpeed(1);
+  MainMovement->GetRightMotor()->SetSpeed(-1);
+  unsigned long timeStart = millis();
+  while (millis() - timeStart < timeCount) delay(100);
+  MainMovement->SetSpeedAndGoForward(0);
+}
+
 void setup() {
     MainMovement =      new MovementClass(new MotorClass(LEFT_MOTOR_ENABLE_PIN,  LEFT_MOTOR_INPUT1_PIN,  LEFT_MOTOR_INPUT2_PIN),
                                           new MotorClass(RIGHT_MOTOR_ENABLE_PIN, RIGHT_MOTOR_INPUT1_PIN, RIGHT_MOTOR_INPUT2_PIN),
